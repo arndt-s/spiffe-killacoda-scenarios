@@ -1,15 +1,51 @@
-At first we need to prepare the namespace used for our SPIRE installation:
+The SPIRE server is the core component of the SPIRE system that issues and manages identities for workloads. Let's start by setting up the server infrastructure.
+
+First, we need to create a dedicated namespace for our SPIRE deployment:
 
 `kubectl create namespace spire`{{exec}}
 
-Once the namespace is created we need to create a couple of more resources that the server requires:
+Now let's create the foundational resources that the SPIRE server requires:
 
-- A ServiceAccount, `kubectl create -f server-account.yaml`{{exec}}
-- A ClusterRole to allow reading nodes and pods for the attestation of SPIRE agents (PSAT attestation). `kubectl create -f server-role.yaml`{{exec}}
-- A ConfigMap where the latest bundle is stored. This is picked up by SPIRE agents in order to verify the server certificate of the SPIRE server. `kubectl create -f spire-bundle-configmap.yaml`{{exec}}
-- A Role to allow modification of above config map in the SPIRE namespace to store the latest bundle in it. `kubectl create -f server-clusterrole.yaml`{{exec}}
-- A Service to route traffic to SPIRE servers. `kubectl create -f server-service.yaml`{{exec}}
+**ServiceAccount and RBAC Configuration:**
 
-Once these resources are created we can create the actual server StatefulSet:
+Create the ServiceAccount for the SPIRE server:
+
+`kubectl create -f server-account.yaml`{{exec}}
+
+Set up the ClusterRole to allow the server to read nodes and pods for agent attestation:
+
+`kubectl create -f server-clusterrole.yaml`{{exec}}
+
+Create the Role for managing the trust bundle ConfigMap within the SPIRE namespace:
+
+`kubectl create -f server-role.yaml`{{exec}}
+
+**Trust Bundle and Configuration:**
+
+Create the ConfigMap that will store the SPIRE trust bundle (used by agents to verify the server):
+
+`kubectl create -f spire-bundle-configmap.yaml`{{exec}}
+
+Deploy the SPIRE server configuration:
+
+`kubectl create -f server-configmap.yaml`{{exec}}
+
+**Network Service:**
+
+Create the Service to enable network access to the SPIRE server:
+
+`kubectl create -f server-service.yaml`{{exec}}
+
+**Deploy the SPIRE Server:**
+
+Now we can deploy the SPIRE server as a StatefulSet:
 
 `kubectl create -f server-statefulset.yaml`{{exec}}
+
+Let's wait for the SPIRE server to be fully ready:
+
+`kubectl wait --for=condition=ready pod/spire-server-0 -n spire --timeout=300s`{{exec}}
+
+You can verify the server is running by checking its logs:
+
+`kubectl logs -n spire spire-server-0`{{exec}}

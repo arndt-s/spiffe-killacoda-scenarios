@@ -9,6 +9,10 @@
       {
         "title": "Install SPIRE server",
         "text": "1_install_server.md"
+      },
+      {
+        "title": "Install SPIRE agent",
+        "text": "2_install_agent.md"
       }
     ],
     "finish": {
@@ -22,7 +26,11 @@
         {"file": "server-role.yaml", "target": "/root", "chmod": "+w"},
         {"file": "server-service.yaml", "target": "/root", "chmod": "+w"},
         {"file": "server-statefulset.yaml", "target": "/root", "chmod": "+w"},
-        {"file": "spire-bundle-configmap.yaml", "target": "/root", "chmod": "+w"}
+        {"file": "spire-bundle-configmap.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "agent-account.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "agent-cluster-role.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "agent-configmap.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "agent-daemonset.yaml", "target": "/root", "chmod": "+w"}
       ]
     }
   },
