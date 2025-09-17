@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-workload
+  labels:
+    app: debug-workload
+spec:
+  containers:
+  - name: debug-workload
+    image: public.ecr.aws/d1i7q6j7/spirldbg:latest
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do sleep 30; done"]
+    volumeMounts:
+    - name: spire-agent-socket
+      mountPath: /run/spire/sockets
+      readOnly: true
+    env:
+    - name: SPIFFE_ENDPOINT_SOCKET
+      value: unix:///run/spire/sockets/agent.sock
+  volumes:
+  - name: spire-agent-socket
+    hostPath:
+      path: /run/spire/sockets
+      type: Directory
+  serviceAccountName: default
+  restartPolicy: Always

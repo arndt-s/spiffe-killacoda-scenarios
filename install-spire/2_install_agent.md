@@ -13,3 +13,20 @@ Now we can deploy the SPIRE agent as a DaemonSet to ensure it runs on every node
 Let's wait for the SPIRE agents to be ready:
 
 `kubectl wait --for=condition=ready pods -l app=spire-agent -n spire --timeout=300s`{{exec}}
+
+## Register the Agent with SPIRE Server
+
+Now we need to create a registration entry for the SPIRE agent. This tells the server what identities the agent is allowed to attest:
+
+```
+kubectl exec -n spire spire-server-0 -- \
+    /opt/spire/bin/spire-server entry create \
+    -node  \
+    -spiffeID spiffe://example.org/ns/spire/sa/spire-agent \
+    -selector k8s_psat:agent_ns:spire \
+    -selector k8s_psat:agent_sa:spire-agent
+```{{exec}}
+
+Finally, let's verify that the agents have successfully attested to the server:
+
+`kubectl exec -n spire spire-server-0 -- /opt/spire/bin/spire-server agent list`{{exec}}

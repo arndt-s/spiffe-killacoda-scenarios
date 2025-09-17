@@ -13,6 +13,10 @@
       {
         "title": "Install SPIRE agent",
         "text": "2_install_agent.md"
+      },
+      {
+        "title": "Deploy debug workload",
+        "text": "3_deploy_workload.md"
       }
     ],
     "finish": {
@@ -30,7 +34,8 @@
         {"file": "agent-account.yaml", "target": "/root", "chmod": "+w"},
         {"file": "agent-cluster-role.yaml", "target": "/root", "chmod": "+w"},
         {"file": "agent-configmap.yaml", "target": "/root", "chmod": "+w"},
-        {"file": "agent-daemonset.yaml", "target": "/root", "chmod": "+w"}
+        {"file": "agent-daemonset.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "debug-workload.yaml", "target": "/root", "chmod": "+w"}
       ]
     }
   },
