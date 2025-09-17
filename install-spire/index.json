@@ -1,0 +1,21 @@
+{
+  "title": "SPIRE installation",
+  "description": "Install SPIRE into Kubernetes",
+  "details": {
+    "intro": {
+      "text": "intro.md"
+    },
+    "steps": [
+      {
+        "title": "Install SPIRE server",
+        "text": "1_install_server.md"
+      }
+    ],
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  }
+}
