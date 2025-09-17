@@ -13,6 +13,17 @@
     ],
     "finish": {
       "text": "finish.md"
+    },
+    "assets": {
+      "host01": [
+        {"file": "server-account.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "server-clusterrole.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "server-configmap.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "server-role.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "server-service.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "server-statefulset.yaml", "target": "/root", "chmod": "+w"},
+        {"file": "spire-bundle-configmap.yaml", "target": "/root", "chmod": "+w"}
+      ]
     }
   },
   "backend": {
